@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Larkspur SOC — Investigation Portal (Training Replica)</title>
+<style>
+  :root { --brand:#12334f; --accent:#1f8f5a; --ink:#22303f; --muted:#6c7a89; --soft:#f2f5f9; }
+  body { margin:0; font-family:system-ui,-apple-system,Calibri,Arial,sans-serif; background:var(--soft); color:var(--ink); }
+  .train-banner { background:#5c4b00; color:#fff3c4; font-size:12px; text-align:center; padding:7px 12px; letter-spacing:.4px; }
+  .wrap { max-width:720px; margin:40px auto; }
+  .card { background:#fff; border:1px solid #dbe2ea; border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(15,30,50,.06); }
+  .brand { background:var(--brand); padding:16px 28px; color:#fff; }
+  .brand .a { font-size:21px; font-weight:700; letter-spacing:1px; }
+  .brand .sub { color:#bcd2ec; font-size:11px; padding-top:2px; }
+  .body { padding:24px 28px; }
+  h1 { font-size:18px; margin:0 0 6px 0; }
+  p.small { font-size:12px; color:var(--muted); }
+  label { display:block; font-size:12px; margin:12px 0 4px 0; font-weight:600; }
+  textarea { width:100%; padding:10px; border:1px solid #bcc7d1; border-radius:5px; font-size:13px; font-family:ui-monospace,Consolas,monospace; box-sizing:border-box; min-height:170px; }
+  input[type=text] { width:100%; padding:9px 10px; border:1px solid #bcc7d1; border-radius:5px; font-size:14px; box-sizing:border-box; }
+  button { margin-top:16px; background:var(--brand); color:#fff; border:0; padding:11px 26px; font-size:14px; border-radius:5px; cursor:pointer; }
+  button:hover { background:#08306e; }
+  button:disabled { opacity:.6; cursor:wait; }
+  #verdict { margin-top:14px; font-size:13px; white-space:pre-wrap; }
+  .err { color:#b3003c; } .ok { color:var(--accent); font-weight:600; }
+  .flagbox { display:none; margin-top:14px; background:#eafaf1; border:1px solid #bfe8cf; border-left:5px solid var(--accent); padding:12px 14px; font-family:ui-monospace,Consolas,monospace; font-size:14px; color:#0a7a35; word-break:break-all; }
+  details { margin-top:16px; font-size:12px; color:#55556e; }
+  footer { font-size:11px; color:var(--muted); padding:12px 28px; border-top:1px solid #dbe2ea; background:#fafbfc; }
+</style>
+</head>
+<body>
+<div class="train-banner">TRAINING REPLICA — Zeus0x01 public lab endpoint (incident INC-2417). Not affiliated with any real company.</div>
+<div class="wrap">
+  <div class="card">
+    <div class="brand">
+      <div class="a">Larkspur SOC</div>
+      <div class="sub">Investigation Portal — Zeus0x01 AiTM lab (dataset 1.0.0)</div>
+    </div>
+    <div class="body">
+      <h1>Verify case INC-2417</h1>
+      <p class="small">Paste your answers below, one per line, each prefixed with its question
+      number, e.g. <code>26 - example</code>. Loose prefixes like
+      <code>26: example</code> or <code>026) example</code> work too. The scoring format per
+      question is documented in <code>short-answer-questions.md</code>.</p>
+
+      <label for="answers">Answers (one per line)</label>
+      <textarea id="answers" spellcheck="false"></textarea>
+      <button type="button" id="btnA" onclick="postAnswers()">Score answers</button>
+      <div id="verdict"></div>
+
+      <hr style="border:0;border-top:1px solid #e3e8ee;margin:22px 0;">
+
+      <h1 style="font-size:16px;">Release final flag</h1>
+      <p class="small">Once your core score clears the threshold, enter the four
+      recovered fragment codes (each from a different evidence category).</p>
+      <label for="f1">Email evidence code</label>
+      <input type="text" id="f1" autocomplete="off">
+      <label for="f2">Web artifact code</label>
+      <input type="text" id="f2" autocomplete="off">
+      <label for="f3">Identity log code</label>
+      <input type="text" id="f3" autocomplete="off">
+      <label for="f4">Threat-intel code</label>
+      <input type="text" id="f4" autocomplete="off">
+      <button type="button" id="btnF" onclick="postFragments()">Submit fragments</button>
+      <div id="flagbox"></div>
+      <details>
+        <summary>Need the evidence?</summary>
+        <p>Download the dataset bundle <code>downloads/Zeus0x01-AiTM-Investigation.zip</code>
+        from the lab repository and investigate offline. This portal cannot grade
+        without the deployed serverless function.</p>
+      </details>
+      <noscript><p style="color:#b3003c;">JavaScript is disabled - the portal cannot verify answers.</p></noscript>
+    </div>
+    <footer>
+      Zeus0x01 lab series &middot; server-side verification &middot; HMAC-SHA256 digest comparison
+    </footer>
+  </div>
+</div>
+<script>
+function parseAnswers() {
+  var lines = document.getElementById("answers").value.split(/\r?\n/);
+  var out = {};
+  for (var i = 0; i < lines.length; i++) {
+    var m = lines[i].trim().match(/^0*(\d{1,2})\s*[\)\.:\-]\s*(.+)$/);
+    if (m) { out[parseInt(m[1], 10)] = m[2].trim(); }
+  }
+  return out;
+}
+
+function postAnswers() {
+  var btn = document.getElementById("btnA");
+  var d = document.getElementById("verdict");
+  btn.disabled = true; d.className = ""; d.textContent = "Verifying...";
+  fetch("/api/verify", { method: "POST", contentType: false, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mode: "answers", answers: parseAnswers() }) })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+    .then(function (res) {
+      if (res.body && res.body.ok) {
+        d.className = "ok";
+        d.textContent = "Core correct: " + res.body.core_correct + " / " + res.body.core_total +
+            " (points " + res.body.core_points + "/" + res.body.core_max + ")" +
+            "\nBonus correct: " + res.body.bonus_correct + " / " + res.body.bonus_total +
+            "\nFragment status: " + (res.body.frag_status || "not submitted");
+        var fb = document.getElementById("flagbox");
+        if (res.body.flag) { fb.style.display = "block"; fb.textContent = res.body.flag; }
+        else { fb.style.display = "none"; }
+      } else {
+        d.className = "err";
+        d.textContent = (res.body && res.body.error) || "Verification failed.";
+        document.getElementById("flagbox").style.display = "none";
+      }
+    })
+    .catch(function () { d.className = "err"; d.textContent = "Verification service unavailable. Deploy /api/verify with configured digests."; })
+    .finally(function () { btn.disabled = false; });
+  return false;
+}
+
+function postFragments() {
+  var btn = document.getElementById("btnF");
+  btn.disabled = true;
+  var payload = {
+    mode: "fragments",
+    f1: document.getElementById("f1").value,
+    f2: document.getElementById("f2").value,
+    f3: document.getElementById("f3").value,
+    f4: document.getElementById("f4").value
+  };
+  fetch("/api/verify", { headers: { "Content-Type": "application/json" }, method: "POST", body: JSON.stringify(payload) })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+    .then(function (res) {
+      var d2 = document.getElementById("verdict");
+      var fb = document.getElementById("flagbox");
+      if (res.body && res.body.ok && res.body.flag) {
+        d2.className = "ok"; d2.textContent = "All four fragments verified - flag released.";
+        fb.style.display = "block"; fb.textContent = res.body.flag;
+      } else {
+        d2.className = "err";
+        d2.textContent = (res.body && res.body.error) || "Fragment verification failed.";
+        fb.style.display = "none";
+      }
+    })
+    .catch(function () { var d2 = document.getElementById("verdict"); d2.className = "err"; d2.textContent = "Verification service unavailable."; })
+    .finally(function () { btn.disabled = false; });
+  return false;
+}
+</script>
+</body>
+</html>

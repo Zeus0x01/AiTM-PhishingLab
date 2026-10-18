@@ -1,0 +1,147 @@
+{
+  "dataset": "mailbox_audit",
+  "schema_version": "1.0",
+  "incident_ref": "INC-2417",
+  "provenance": "synthetic training data; not a genuine security-product export",
+  "records": [
+    {
+      "event_id": "EVT-58311",
+      "timestamp_utc": "2026-09-14T09:03:41Z",
+      "actor_user_id": "system",
+      "actor_upn": null,
+      "action": "EmailReceived",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "message_id": "<7e9f2c44.5b1a.20260914090147@mta1.docshare-online.example>",
+      "client_ip": null,
+      "correlation_id": null
+    },
+    {
+      "event_id": "EVT-58312",
+      "timestamp_utc": "2026-09-15T08:05:30Z",
+      "actor_user_id": "system",
+      "actor_upn": null,
+      "action": "EmailReceived",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "message_id": "<20260915T080455Z-1d3e6b8c2@mail.audit-trail-software.example>",
+      "client_ip": null,
+      "correlation_id": null
+    },
+    {
+      "event_id": "EVT-58313",
+      "timestamp_utc": "2026-09-15T08:09:22Z",
+      "actor_user_id": "system",
+      "actor_upn": null,
+      "action": "EmailReceived",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "message_id": "<50a3d7b1-22c9-4a10-a1d8-20260915080720@mail.larkspur-itdesk.example>",
+      "client_ip": null,
+      "correlation_id": null
+    },
+    {
+      "event_id": "EVT-58314",
+      "timestamp_utc": "2026-09-15T08:59:30Z",
+      "actor_user_id": "USR-11018",
+      "actor_upn": "dana.wexler@larkspur-systems.example",
+      "action": "NewInboxRule",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "rule_name": "SecArchives",
+      "rule_conditions": {
+        "subject_contains": [
+          "security review",
+          "audit"
+        ]
+      },
+      "rule_actions": [
+        "mark_as_read",
+        "move_to_folder"
+      ],
+      "rule_destination_folder": "Archive-Process",
+      "client_ip": "203.0.113.87",
+      "correlation_id": "CORR-9F3A-11",
+      "message_id": null
+    },
+    {
+      "event_id": "EVT-58315",
+      "timestamp_utc": "2026-09-15T09:02:10Z",
+      "actor_user_id": "USR-11018",
+      "actor_upn": "dana.wexler@larkspur-systems.example",
+      "action": "SetForwarding",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "forwarding_address": "billing-ops-sync@docshare-online.example",
+      "forwarding_type": "smtp",
+      "client_ip": "203.0.113.87",
+      "correlation_id": "CORR-9F3A-11",
+      "message_id": null
+    },
+    {
+      "event_id": "EVT-58316",
+      "timestamp_utc": "2025-03-04T09:14:22Z",
+      "actor_user_id": "USR-11018",
+      "actor_upn": "dana.wexler@larkspur-systems.example",
+      "action": "NewInboxRule",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "rule_name": "Finance-Reports",
+      "rule_conditions": {
+        "subject_contains": [
+          "finance",
+          "weekly report"
+        ]
+      },
+      "rule_actions": [
+        "move_to_folder"
+      ],
+      "rule_destination_folder": "Finance-Reports-2025",
+      "client_ip": "198.51.100.44",
+      "correlation_id": null,
+      "message_id": null
+    },
+    {
+      "event_id": "EVT-58318",
+      "timestamp_utc": "2026-09-15T09:16:44Z",
+      "actor_user_id": "USR-11018",
+      "actor_upn": "dana.wexler@larkspur-systems.example",
+      "action": "InboxRuleExecuted",
+      "target_user_id": "USR-11018",
+      "target_upn": "dana.wexler@larkspur-systems.example",
+      "rule_name": "SecArchives",
+      "rule_conditions": {
+        "subject_contains": [
+          "security review",
+          "audit"
+        ]
+      },
+      "rule_actions": [
+        "mark_as_read",
+        "move_to_folder"
+      ],
+      "rule_destination_folder": "Archive-Process",
+      "client_ip": "203.0.113.87",
+      "correlation_id": "CORR-9F3A-11",
+      "message_id": null
+    },
+    {
+      "event_id": "EVT-58317",
+      "timestamp_utc": "2026-09-15T09:20:44Z",
+      "actor_user_id": "USR-10091",
+      "actor_upn": "marcus.hale@larkspur-systems.example",
+      "action": "FolderAction",
+      "target_user_id": "USR-10091",
+      "target_upn": "marcus.hale@larkspur-systems.example",
+      "rule_name": null,
+      "rule_conditions": null,
+      "rule_actions": [
+        "create_folder"
+      ],
+      "rule_destination_folder": "SOC-Weekly",
+      "client_ip": "198.51.100.19",
+      "correlation_id": null,
+      "message_id": null
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- dev-snapshot metadata: saved_from="https://sso.docsview-online.example/signin/azure_sso?client_request_id=CID-20260914-5F2A-4B71&logid=LOGID-2F8A-0931"; saved_at="2026-09-15T08:46:14Z"; case="INC-2417" -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secure Documents Sign-in</title>
+<style>
+  body { font-family: system-ui, Arial, sans-serif; background:#eef1f5; margin:0; }
+  .card { max-width: 420px; margin: 70px auto; background:#fff; border:1px solid #d8dde3;
+          border-radius: 8px; padding: 30px 34px; }
+  h1 { font-size: 20px; margin: 0 0 6px 0; }
+  p.lead { font-size: 13px; color:#4a5568; margin-top: 0; }
+  label { display: block; font-size: 12px; margin: 12px 0 4px 0; }
+  input[type=text], input[type=password] { width: 100%; padding: 9px 10px; border: 1px solid #b8c0c9;
+          border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+  button { margin-top: 18px; background: #14436e; border: 0; color:#fff; padding: 10px 16px;
+           border-radius: 4px; font-size: 14px; cursor: pointer; }
+  .captcha { background: #f6f7f9; border: 1px dashed #b8c0c9; padding: 10px 12px;
+             font-size: 12px; color: #4a5568; }
+  .st-n { font-family: monospace; font-size: 11px; color: #6b7280; }
+</style>
+</head>
+<body data-stage="rippling">
+<div class="card">
+  <h1>Secure Documents Sign-in</h1>
+  <p class="lead">Review your pending documents. Sign in with your corporate account.</p>
+  <form method="get" onsubmit="return false;">
+    <label for="user">Corporate account</label>
+    <input type="text" id="user" name="user" autocomplete="off">
+    <label for="pass">Password</label>
+    <input type="password" id="pass" name="pass" autocomplete="off">
+    <div><input type="hidden" id="__tk" name="__tk" value="7K2-TOK-R9X4"></div>
+    <div class="captcha">Captcha state: <span id="cap">probing</span>, node: <span class="st-n" id="st-n"></span></div>
+    <div class="mfa-step" data-step="mfa" style="margin-top:14px;font-size:12px;color:var(--ink,#22303f);">
+      Step 2 of 2 &mdash; approve sign-in request (second factor):
+      <button type="button" disabled>Approve</button> or
+      <button type="button" disabled>Use code instead</button>
+    </div>
+    <button type="submit" id="sig-in-mt">Sign in securely</button>
+  </form>
+  <p style="font-size:11px;color:#8a919a;margin-top:20px;">
+    Static analysis artifact. No submission occurs; no network request is made.
+  </p>
+</div>
+
+</body>
+</html>

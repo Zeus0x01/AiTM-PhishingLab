@@ -1,0 +1,15 @@
+# redirect-hop-02.txt -- static capture record (NOT a live redirect).
+# This file documents the next hop in the simulated chain.
+# Sanitized by the analyzing analyst: hostile indicators are defanged and
+# must never be re-hosted, resolved, or contacted.
+capture_id:      CAP-H2-91B7a20c
+observed_at_utc: 2026-09-15T08:44:12Z
+client_ip:       198.51.100.44
+method:          GET
+request_url:     https://secure-link-verify.example/s/2C4d9Ef1a3B7
+response_code:   302
+location:        https://sso.docsview-online.example/signin/azure_sso?client_request_id=CID-20260914-5F2A-4B71&logid=LOGID-2F8A-0931
+server_header:   nginx/1.22.1 (kit-edge-03)
+page_refs:       tracking/diagnostic host referenced by page script:
+                 beacon.diremsto[.]com  (defanged; public IOC; see SAFETY.md)
+notes:           target matches the Sign-in replica captured in saved-page.html.

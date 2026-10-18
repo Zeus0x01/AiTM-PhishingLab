@@ -1,0 +1,6 @@
+# Keep dataset byte-stable: LF everywhere, CRLF only for RFC-5322 emails
+* text=auto eol=lf
+*.eml text eol=crlf
+*.zip binary
+*.png binary
+*.pdf binary

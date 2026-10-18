@@ -1,0 +1,12 @@
+# redirect-hop-01.txt -- static capture record (NOT a live redirect).
+# This file documents one hop observed in the simulated chain. It is an
+# analyst-authored, sanitized copy: no request is made by reading this file.
+capture_id:      CAP-H1-2C4d9Ef1
+observed_at_utc: 2026-09-15T08:44:10Z
+client_ip:       198.51.100.44
+method:          GET
+request_url:     https://docs-notify.example/file/view?u=aHR0cHM6Ly9zc28uZG9jc3ZpZXctb25saW5lLmV4YW1wbGUvc2lnbmluL2F6dXJlX3Nzbz9jbGllbnRfcmVxdWVzdF9pZD1DSUQtMjAyNjA5MTQtNUYyQS00QjcxJmxvZ2lkPUxPR0lELTJGOEEtMDkzMQ
+response_code:   302
+location:        https://secure-link-verify.example/s/2C4d9Ef1a3B7
+server_header:   nginx/1.24.0 (dented-log-01)
+notes:           hop originated from the docs-notify.example link in email-01.

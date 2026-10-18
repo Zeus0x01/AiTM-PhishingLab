@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local scratch
+*.log
+.env
+.env.*
+opencode/
+
+# Instructor secret material — never commit values; env vars only
+**/digests.env*
+**/*.env.txt
+
+# OS noise
+Thumbs.db
+.DS_Store

@@ -1,0 +1,82 @@
+{
+  "dataset": "identity_audit",
+  "schema_version": "1.0",
+  "incident_ref": "INC-2417",
+  "provenance": "synthetic training data; not a genuine security-product export; field names are vendor-agnostic but modeled on Entra ID audit shape",
+  "records": [
+    {
+      "event_id": "EVT-59011",
+      "timestamp_utc": "2026-09-15T08:11:33Z",
+      "user_id": "USR-10088",
+      "user_principal_name": "sara.okoye@larkspur-systems.example",
+      "category": "authorization",
+      "operation": "consent_granted",
+      "resource": "AuditTrail Compliance Reader",
+      "result": "success",
+      "source_ip": "198.51.100.22",
+      "correlation_id": null
+    },
+    {
+      "event_id": "EVT-59012",
+      "timestamp_utc": "2026-09-15T08:59:02Z",
+      "user_id": "USR-11018",
+      "user_principal_name": "dana.wexler@larkspur-systems.example",
+      "category": "authorization",
+      "operation": "devicecode_token_grant",
+      "resource": "Microsoft Exchange Online",
+      "scope": "mail.readwrite mail.send",
+      "result": "success",
+      "source_ip": "203.0.113.87",
+      "correlation_id": "CORR-2E71-05",
+      "support_ticket": "SR-88031"
+    },
+    {
+      "event_id": "EVT-59013",
+      "timestamp_utc": "2026-09-15T09:02:10Z",
+      "user_id": "USR-11018",
+      "user_principal_name": "dana.wexler@larkspur-systems.example",
+      "category": "account_settings",
+      "operation": "mfa_method_added",
+      "resource": "Authentication method -- email",
+      "result": "success",
+      "source_ip": "203.0.113.87",
+      "correlation_id": "CORR-9F3A-11"
+    },
+    {
+      "event_id": "EVT-59015",
+      "timestamp_utc": "2026-09-15T09:14:57Z",
+      "user_id": "USR-11018",
+      "user_principal_name": "dana.wexler@larkspur-systems.example",
+      "category": "account_settings",
+      "operation": "device_registration",
+      "resource": "LSPR-DWIN-D2026",
+      "result": "success",
+      "source_ip": "203.0.113.87",
+      "correlation_id": "CORR-2E71-05"
+    },
+    {
+      "event_id": "EVT-59021",
+      "timestamp_utc": "2026-09-14T17:40:10Z",
+      "user_id": "USR-10091",
+      "user_principal_name": "marcus.hale@larkspur-systems.example",
+      "category": "account_settings",
+      "operation": "password_changed",
+      "resource": "Larkspur identity",
+      "result": "success",
+      "source_ip": "198.51.100.19",
+      "correlation_id": null
+    },
+    {
+      "event_id": "EVT-59022",
+      "timestamp_utc": "2026-09-14T10:52:20Z",
+      "user_id": "USR-10002",
+      "user_principal_name": "soc-admin@larkspur-systems.example",
+      "category": "account_settings",
+      "operation": "conditional_access_policy_updated",
+      "resource": "CAP-TravelNotification",
+      "result": "success",
+      "source_ip": "198.51.100.44",
+      "correlation_id": null
+    }
+  ]
+}

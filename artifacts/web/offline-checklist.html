@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AiTM lab — offline answer checklist</title>
+<style>
+  body { font-family: system-ui, Arial, sans-serif; background:#161b22; color:#e6edf3; margin:0; }
+  .box { max-width: 640px; margin: 50px auto; border:1px solid #30363d; border-radius:8px; padding: 24px 30px; }
+  h1 { font-size: 18px; margin-top: 0; }
+  p, li { font-size: 13px; color: #9aa4b2; }
+  input { width: 100%; padding: 9px 10px; border:1px solid #3d444d; background:#0d1117; color:#e6edf3; border-radius:4px; font-size:14px; }
+  label { display:block; font-size:12px; margin:14px 0 4px 0; }
+  button { margin-top:16px; background:#1f6feb; color:#fff; border:0; padding:10px 18px; border-radius:4px; font-size:14px; }
+  .out { margin-top:14px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; color:#e3b341; white-space: pre-wrap; }
+</style>
+</head>
+<body data-stage="idle">
+<div class="box">
+  <h1>Offline answer checklist (no verification, no secrets)</h1>
+  <p>This page is a local checklist only. It contains <b>no answer digests and no
+  canonical flag</b> — client-side pages cannot provide genuine answer secrecy.
+  Final verification happens either on a deployed lab portal or on the hosting
+  platform itself (question bank supplied by the lab maintainer).</p>
+  <label>Answers you believe are correct (for your own notes)</label>
+  <input id="notes" value="" readonly>
+  <label>Fragment 1 (email/header) — F1</label>
+  <input id="g1" autocomplete="off">
+  <label>Fragment 2 (web artifact) — F2</label>
+  <input id="g2" autocomplete="off">
+  <label>Fragment 3 (identity/audit logs) — F3</label>
+  <input id="g3" autocomplete="off">
+  <label>Fragment 4 (threat-intel reference) — F4</label>
+  <input id="g4" autocomplete="off">
+  <button id="b" onclick="stage()">Show fragment status</button>
+  <div class="out" id="out"></div>
+  <p style="margin-top:22px;">Submit all four fragments through the hosted portal
+  or your lab platform's answer box once your core score clears the threshold.</p>
+</div>
+<script>
+function stage() {
+  var vals = ["g1","g2","g3","g4"].map(function (id) { return document.getElementById(id).value.trim(); });
+  var filled = vals.filter(function (v) { return v; }).length;
+  var out = "Fragments entered: " + filled + " / 4" + "\n";
+  if (filled === 4) {
+    out += "All four fragments present.\n";
+  } else {
+    out += "Each fragment must come from a different evidence category before submission.\n";
+  }
+  out += "\n(No flag can be assembled offline; the canonical flag lives\n on the verification side only.)";
+  document.getElementById("out").textContent = out;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "dataset": "connection_events",
+  "schema_version": "1.0",
+  "incident_ref": "INC-2417",
+  "provenance": "synthetic network observations; not a genuine security-product export",
+  "records": [
+    {
+      "event_id": "EVT-C1050",
+      "timestamp_utc": "2026-09-15T08:44:10Z",
+      "source_ip": "198.51.100.44",
+      "dest_host": "docs-notify.example",
+      "dest_ip": "203.0.113.71",
+      "protocol": "https",
+      "event_ref": "redirect-hop-01.txt",
+      "observation_type": "http_get",
+      "request_uri": "/file/view?u=aHR0cHM6Ly9zc28uZG9jc3ZpZXctb25saW5lLmV4YW1wbGUvc2lnbmluL2F6dXJlX3Nzbz9jbGllbnRfcmVxdWVzdF9pZD1DSUQtMjAyNjA5MTQtNUYyQS00QjcxJmxvZ2lkPUxPR0lELTJGOEEtMDkzMQ",
+      "user_account": "dana.wexler@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    },
+    {
+      "event_id": "EVT-C1051",
+      "timestamp_utc": "2026-09-15T08:44:12Z",
+      "source_ip": "198.51.100.44",
+      "dest_host": "secure-link-verify.example",
+      "dest_ip": "203.0.113.72",
+      "protocol": "https",
+      "event_ref": "redirect-hop-02.txt",
+      "observation_type": "http_get",
+      "request_uri": "/s/2C4d9Ef1a3B7",
+      "user_account": "dana.wexler@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    },
+    {
+      "event_id": "EVT-C1052",
+      "timestamp_utc": "2026-09-15T08:44:14Z",
+      "source_ip": "198.51.100.44",
+      "dest_host": "sso.docsview-online.example",
+      "dest_ip": "203.0.113.73",
+      "protocol": "https",
+      "event_ref": "artifacts/web/saved-page.html",
+      "observation_type": "http_get",
+      "request_uri": "/signin/azure_sso?client_request_id=CID-20260914-5F2A-4B71&logid=LOGID-2F8A-0931",
+      "user_account": "dana.wexler@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    },
+    {
+      "event_id": "EVT-C1053",
+      "timestamp_utc": "2026-09-15T08:46:22Z",
+      "source_ip": "198.51.100.44",
+      "dest_host": "sso.docsview-online.example",
+      "dest_ip": "203.0.113.73",
+      "protocol": "https",
+      "event_ref": "artifacts/web/page-source.js",
+      "observation_type": "http_post",
+      "request_uri": "/signin/azure_sso?log=LOGID-2F8A-0931",
+      "user_account": "dana.wexler@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    },
+    {
+      "event_id": "EVT-C1009",
+      "timestamp_utc": "2026-09-15T08:20:00Z",
+      "source_ip": "198.51.100.19",
+      "dest_host": "portal.audit-trail-software.example",
+      "dest_ip": "192.0.2.51",
+      "protocol": "https",
+      "event_ref": "email-03-legitimate-review.eml",
+      "observation_type": "http_get",
+      "request_uri": "/secure-check",
+      "user_account": "marcus.hale@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    },
+    {
+      "event_id": "EVT-C1015",
+      "timestamp_utc": "2026-09-15T08:36:11Z",
+      "source_ip": "198.51.100.22",
+      "dest_host": "portal.audit-trail-software.example",
+      "dest_ip": "192.0.2.51",
+      "protocol": "https",
+      "event_ref": "email-03-legitimate-review.eml",
+      "observation_type": "http_get",
+      "request_uri": "/secure-check",
+      "user_account": "sara.okoye@larkspur-systems.example",
+      "data_source": "synthetic_proxy_telemetry"
+    }
+  ]
+}
