@@ -46,7 +46,7 @@ def write_short_answer_questions():
     for q in QUESTIONS:
         if q["category"] == "Bonus":
             continue
-        parts.append(f"{q['id']}. {q['title']} {q['prompt']}")
+        parts.append(f"{q['id']}. ({q['points']} pt) {q['title']} {q['prompt']}")
         parts.append(f"Answer format: `{q['answer_format']}`  (evidence: "
                      + ", ".join(a.rsplit("/", 1)[-1]
                                  for a in q["artifacts"]) + ")")
@@ -55,7 +55,7 @@ def write_short_answer_questions():
     parts.append("")
     for q in QUESTIONS:
         if q["category"] == "Bonus":
-            parts.append(f"{q['id']}. {q['title']} {q['prompt']}")
+            parts.append(f"{q['id']}. ({q['points']} pt) {q['title']} {q['prompt']}")
             parts.append(f"Answer format: `{q['answer_format']}`  (evidence: "
                          + ", ".join(a.rsplit("/", 1)[-1]
                                      for a in q["artifacts"]) + ")")

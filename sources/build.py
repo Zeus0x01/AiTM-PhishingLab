@@ -1038,7 +1038,7 @@ def build_incident_events():
 QUESTIONS = [
     dict(id=1, category="Email headers and sender analysis", points=1,
          title="(Origin relay IPv4)",
-         prompt="Email 1 has a four-hop `Received:` chain. Read the bottommost `Received:` header (the first server that received the message). What connecting IPv4 address does that header record in brackets?",
+          prompt="Email 1 travels through a three-hop `Received:` chain. Read the bottommost `Received:` header (the first server that received the message). What connecting IPv4 address does that header record in brackets?",
          answer_format="IPv4 address",
          artifacts=["mail/eml/email-01-aitm-lure.eml"],
          accepted=[IP_RELAY]),
@@ -1136,7 +1136,7 @@ QUESTIONS = [
 
     dict(id=15, category="Threat intelligence and attribution", points=1,
          title="(MITRE technique id)",
-         prompt="The Darktrace report, 'Bypassing MFA: AiTM Tactics Exposed' (brighttrace.com/blog/mfa-under-attack-aitm-phishing-kits-abusing-legitimate-services, published 2025-04-29), maps its observed campaign to the credential-access technique it names 'Steal Web Session Cookie'. What is that technique's MITRE ATT&CK ID?",
+          prompt="The Darktrace report, 'MFA Under Attack: AiTM Phishing Kits Abusing Legitimate Services' (darktrace.com/blog/mfa-under-attack-aitm-phishing-kits-abusing-legitimate-services, published 2025-04-29), maps its observed campaign to the credential-access technique it names 'Steal Web Session Cookie'. What is that technique's MITRE ATT&CK ID?",
          answer_format="ATT&CK technique ID (e.g. T1xxx)",
          artifacts=["artifacts/documentation/field-reference.md"],
          accepted=["T1539"]),

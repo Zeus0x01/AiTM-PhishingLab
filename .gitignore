@@ -9,6 +9,9 @@ __pycache__/
 .env.*
 opencode/
 
+# Instructor plaintext answer pack — public branch must never track it
+instructor/
+
 # Instructor secret material — never commit values; env vars only
 **/digests.env*
 **/*.env.txt

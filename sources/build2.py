@@ -433,7 +433,7 @@ creates a functional authentication relay.
 | Purpose in the lab | Threat-intelligence pivot for the TI questions only; never contacted or re-hosted |
 
 Ancillary reports trainees are pointed at for context (not embedded in
-artifacts): Darktrace, "Bypassing MFA: AiTM Tactics Exposed" (2025-04-29)
+artifacts): Darktrace, "MFA Under Attack: AiTM Phishing Kits Abusing Legitimate Services" (2025-04-29)
 and Microsoft Threat Intelligence, "Storm-{{x}} conducts device code
 phishing campaign" (2025-02-13). The Darktrace report maps Tycoon 2FA
 campaign behavior to the MITRE ATT&CK technique **Steal Web Session
