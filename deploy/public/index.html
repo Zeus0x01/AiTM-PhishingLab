@@ -46,7 +46,34 @@
       question is documented in <code>short-answer-questions.md</code>.</p>
 
       <label for="answers">Answers (one per line)</label>
-      <textarea id="answers" spellcheck="false"></textarea>
+      <textarea id="answers" spellcheck="false"
+        placeholder="Submit each answer as:  N: value   (one per line)
+1: <ip-nnn.nnn.nnn.nnn>
+2: EVT-nnnnn
+3: <envelope-domain.example>,<dkim-domain.example>
+4: <ticket-ref>,<filename>.json
+5: /<url-path>
+6: <dataset-filename>.json,<event-id>
+7: <token-value>
+8: ENUM_VALUE (hyphens/spaces optional)
+9: <rule_name>,<event-id>
+10: <row-count>
+11: <alert-id>,<severity>
+12: <correlation-id>,<event-id>
+13: <event-id>,<forward-domain.example>
+14: <domain[.]defanged>,<family-name>
+15: T<nnnn>
+16: <tracked-actor-designation>
+17: EVT-id,EVT-id,EVT-id (first to last)
+18: EVT-id,EVT-id,EVT-id (earliest first)
+19: ENUM_VALUE (hyphens/spaces optional)
+20: <local-part@host> (angle brackets optional)
+21: EVT-nnnnn
+22: <header-value-after-decoding>
+23: <runtime-value-after-decoding>
+24: ENUM_VALUE (the MISSING telemetry step)
+25: yyyy-mm-ddThh:mm:ssZ
+26: <count-email1>,<count-email3>"></textarea>
       <button type="button" id="btnA" onclick="postAnswers()">Score answers</button>
       <div id="verdict"></div>
 
@@ -56,13 +83,13 @@
       <p class="small">Once your core score clears the threshold, enter the four
       recovered fragment codes (each from a different evidence category).</p>
       <label for="f1">Email evidence code</label>
-      <input type="text" id="f1" autocomplete="off">
+      <input type="text" id="f1" autocomplete="off" placeholder="from the Email 1 header (decode)">
       <label for="f2">Web artifact code</label>
-      <input type="text" id="f2" autocomplete="off">
+      <input type="text" id="f2" autocomplete="off" placeholder="from page-source.js (decode)">
       <label for="f3">Identity log code</label>
-      <input type="text" id="f3" autocomplete="off">
+      <input type="text" id="f3" autocomplete="off" placeholder="correlation id from identity-audit.json / signins.json">
       <label for="f4">Threat-intel code</label>
-      <input type="text" id="f4" autocomplete="off">
+      <input type="text" id="f4" autocomplete="off" placeholder="MITRE technique id from the cited reports">
       <button type="button" id="btnF" onclick="postFragments()">Submit fragments</button>
       <div id="flagbox"></div>
       <details>
