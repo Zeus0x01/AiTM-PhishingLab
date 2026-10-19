@@ -1,6 +1,6 @@
 # short-answer-questions.md — Zeus0x01 AiTM Phishing Investigation
 
-Dataset v1.1.0 · incident INC-2417 · 21 core + 5 bonus.
+Dataset **v1.1.0** · incident INC-2417 · 21 core + 5 bonus.
 
 One short answer per question. Case-insensitive unless a format says otherwise;
 leading/trailing spaces ignored. Answer formats are strict for grading.
@@ -56,7 +56,7 @@ Answer format: `defanged-domain,family-name`
 15. (1 pt) Public analysis of AiTM kits that harvest cloud sessions maps the credential-access behavior “Steal Web Session Cookie” to which MITRE ATT&CK technique ID? (Also noted in the lab field reference.)
 Answer format: `T####`
 
-16. (1 pt) Which tracked actor designation is publicly associated with large-scale device-code phishing against Microsoft 365 identities (Microsoft TI naming)?
+16. (1 pt) In Microsoft public reporting on large-scale **device-code** phishing against Microsoft 365 identities, which tracked actor designation is used? (Report naming only — do **not** treat this as attribution of INC-2417 to that actor.)
 Answer format: `actor designation`
 
 17. (2 pt) Order the attacker’s first successful malicious sign-in, the malicious inbox-rule creation, and the external forwarding change — ascending by time.
@@ -65,7 +65,7 @@ Answer format: `event-id_1,event-id_2,event-id_3`
 18. (2 pt) Order the chain openers ascending by time: delivery of the primary lure into Dana’s mailbox, the first network fetch of the decoded sign-in URL, and the first successful malicious sign-in.
 Answer format: `event-id_1,event-id_2,event-id_3`
 
-19. (1 pt) Strongest classification supported by the full package (not by a single email alone): PHISHING_CLICK_ONLY, PHISHING_REPORT_ONLY, SESSION_HIJACKED, DATA_EXFIL_CONFIRMED.
+19. (1 pt) Strongest **working hypothesis** supported by the full package (not a single email alone). Cookie theft / session replay is **not** directly logged — choose the label that best matches the combined observed chain: PHISHING_CLICK_ONLY, PHISHING_REPORT_ONLY, SESSION_HIJACKED, DATA_EXFIL_CONFIRMED.
 Answer format: `enum token`
 
 20. (1 pt) Which Message-ID belongs to the legitimate contracted-vendor digest (not a lure)? Angle brackets optional.
@@ -82,7 +82,7 @@ Answer format: `exact decoded token`
 23. (1 pt) Recover the node stamp the page script derives via its XOR helper (shown in the saved snapshot’s node field).
 Answer format: `exact decoded token`
 
-24. (1 pt) Which step is implied by a real AiTM outcome but is not recorded anywhere in this package? DEVICE_CODE_GENERATION, MFA_PROMPT_DISPLAYED, INBOX_RULE_ACTIVATION, SESSION_COOKIE_CAPTURE.
+24. (1 pt) Which step is **implied** by a real AiTM outcome but is **not recorded** anywhere in this package? DEVICE_CODE_GENERATION, MFA_PROMPT_DISPLAYED, INBOX_RULE_ACTIVATION, SESSION_COOKIE_CAPTURE.
 Answer format: `enum token`
 
 25. (1 pt) Earliest `timestamp_utc` value present in the identity-audit dataset (any row).
