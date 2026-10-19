@@ -18,7 +18,7 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 
 | Q | Answer | Notes |
 |---|--------|-------|
-| 1 | `203.0.113.44` | First/bottom Received on email-01 |
+| 1 | `203.0.113.44` | First/bottom Received on msg-20260914-090147.eml |
 | 2 | `EVT-58107` | svc-hygiene failed sign-in from that IP |
 | 3 | `larkspur-mail-relay-02.example,larkspur-itdesk.example` | Return-Path vs DKIM header.d |
 | 4 | `SR-88031,identity-audit.json` | support_ticket on device-code grant |
@@ -33,11 +33,11 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 | 13 | `EVT-58315,docshare-online.example` | SetForwarding domain |
 | 14 | `beacon.diremsto[.]com,Tycoon 2FA` | hop-02 IOC |
 | 15 | `T1539` | Steal Web Session Cookie |
-| 16 | `Storm-2372` | Microsoft device-code actor |
+| 16 | `Storm-2372` | Microsoft **report naming** for device-code phishing (not attribution of INC-2417) |
 | 17 | `EVT-58103,EVT-58314,EVT-58315` | sign-in → rule → forward |
 | 18 | `EVT-58311,EVT-C1052,EVT-58103` | delivery → click → sign-in |
-| 19 | `SESSION_HIJACKED` | auth success + mailbox persistence |
-| 20 | `20260915T080455Z-1d3e6b8c2@mail.audit-trail-software.example` | email-03 |
+| 19 | `SESSION_HIJACKED` | **working hypothesis** from lure→success→mailbox chain; cookie capture not logged |
+| 20 | `20260915T080455Z-1d3e6b8c2@mail.audit-trail-software.example` | msg-20260915-080455.eml |
 | 21 | `EVT-58316` | Finance-Reports rule (2025) |
 | 22 | `MKD-2026-R480` | X-Msg-Route base64 |
 | 23 | `NODE-4A9-7717` | XOR node array |
@@ -55,6 +55,18 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 | F4 | `T1539` |
 
 `FLAG{AiTM-MKD-2026-R480-NODE-4A9-7717-CORR-2E71-05-T1539}`
+
+## AiTM vs device-code (instructor)
+
+Keep Path A (browser/login-replica) and Path B (device-code grant) separate. See `artifacts/documentation/observed-vs-inferred.md`.
+
+Renamed messages (v1.1.0):
+
+| File | Role |
+|------|------|
+| `msg-20260914-090147.eml` | Primary document-notification lure |
+| `msg-20260915-080720.eml` | Device-activation lure |
+| `msg-20260915-080455.eml` | Legitimate vendor digest |
 
 ## Noise (v1.1.0)
 

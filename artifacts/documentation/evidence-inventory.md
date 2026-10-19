@@ -1,4 +1,4 @@
-# Evidence inventory — Zeus0x01 AiTM Investigation (dataset v1.0.0)
+# Evidence inventory — Zeus0x01 AiTM Investigation (dataset v1.1.0)
 
 Fictional corporate incident reference: **INC-2417** (Larkspur Systems,
 internal lab scenario). Provenance of every artifact: synthetic training
@@ -9,9 +9,9 @@ Microsoft Defender XDR, Splunk, Elastic, or any security product.
 
 | Path | Type | Investigative purpose |
 |---|---|---|
-| `mail/eml/email-01-aitm-lure.eml` | Email | Primary lure in the incident chain |
-| `mail/eml/email-02-device-code.eml` | Email | Second lure variant (device-code pretext) |
-| `mail/eml/email-03-legitimate-review.eml` | Email | Legitimate vendor digest (false-positive test) |
+| `mail/eml/msg-20260914-090147.eml` | Email | Message recovered from Dana's mailbox (document notification theme) |
+| `mail/eml/msg-20260915-080720.eml` | Email | Message recovered from Dana's mailbox (service activation theme) |
+| `mail/eml/msg-20260915-080455.eml` | Email | Message recovered from Dana's mailbox (vendor security digest) |
 | `artifacts/web/redirect-hop-01.txt` | Capture record | First hop recorded in the simulated redirect chain |
 | `artifacts/web/redirect-hop-02.txt` | Capture record | Second hop recorded in the simulated redirect chain; contains one defanged public IOC |
 | `artifacts/web/login-page.html` | Static page | Static source duplicate of a sign-in page |
@@ -25,8 +25,9 @@ Microsoft Defender XDR, Splunk, Elastic, or any security product.
 | `artifacts/logs/incident-events.jsonl` | JSONL | Normalized index of selected events |
 | `artifacts/logs/incident-timeline.csv` | CSV | Generated index view of the JSONL (not authoritative) |
 | `artifacts/network/connection-events.json` | JSON | Synthetic network observations |
-| `documentation/field-reference.md` | Doc | Field definitions and decode guidance |
-| `documentation/evidence-inventory.md` | Doc | This file |
+| `artifacts/documentation/field-reference.md` | Doc | Field definitions and decode guidance |
+| `artifacts/documentation/observed-vs-inferred.md` | Doc | Path A vs Path B; observed / inferred / not logged |
+| `artifacts/documentation/evidence-inventory.md` | Doc | This file |
 
 ## Context documented for correlation (these are hints, not answers)
 
@@ -42,8 +43,8 @@ Microsoft Defender XDR, Splunk, Elastic, or any security product.
 - **Benign mailbox housekeeping.** at least one inbox rule in the mailbox
   audit file predates the incident window by more than a year and was
   created from a corporate workstation; treat timeline boundaries seriously.
-- **Device-code variant.** The device-code lure's ticket is tracked in the
-  identity platform under the same support-desk reference the lure cites.
+- **Device-code variant.** The device-activation message's ticket is tracked in the
+  identity platform under the same support-desk reference the message cites.
 
 ## Threat-intelligence anchor (public, verified, defanged)
 
