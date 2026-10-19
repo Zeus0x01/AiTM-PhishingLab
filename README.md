@@ -49,12 +49,12 @@ Bundle layout:
 
 | Path | Contents |
 |------|----------|
-| `mail/eml/` | Three RFC 5322 emails (lure, device-code variant, legitimate vendor digest) |
+| `mail/eml/` | Three RFC 5322 messages (neutral filenames; classify by headers and body) |
 | `artifacts/web/` | Redirect-hop capture records, login-page replica, browser-saved snapshot, page script, device-code decoy (all inert; zero network requests) |
 | `artifacts/identity/` | Synthetic sign-in and identity-audit records |
 | `artifacts/logs/` | Synthetic alerts, mailbox audit, incident event stream / timeline |
 | `artifacts/network/` | Synthetic network observations |
-| `artifacts/documentation/` | Field reference + evidence inventory |
+| `artifacts/documentation/` | Field reference, evidence inventory, observed-vs-inferred guidance |
 | `tools/optional-import-examples/` | Optional Splunk / Elastic / PowerShell / Python parsing snippets |
 
 Trainee questions live in:
@@ -78,7 +78,7 @@ short-answer-questions.md
 - Threat-intelligence pivoting: defanged public IOC → attributed family,
   plus MITRE ATT&CK technique mapping (facts mirrored in the documentation
   artifacts for offline use)
-- Classification discipline: strongest conclusion the evidence supports
+- Classification discipline: observed vs inferred (see `artifacts/documentation/observed-vs-inferred.md`)
 
 ## Prerequisites
 
@@ -167,4 +167,4 @@ check fails before analysis.
 
 ## Version
 
-Dataset `Zeus0x01-AiTM-Investigation` **v1.0.0** (incident **INC-2417**).
+Dataset `Zeus0x01-AiTM-Investigation` **v1.1.0** (incident **INC-2417**).

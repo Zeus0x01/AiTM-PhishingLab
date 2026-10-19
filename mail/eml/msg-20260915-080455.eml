@@ -1,0 +1,41 @@
+Return-Path: <noreply@audit-trail-software.example>
+Delivered-To: dana.wexler@larkspur-systems.example
+Received: from mail-gw.larkspur-systems.example ([198.51.100.12]) by mx-in.larkspur-systems.example
+        with Microsoft SMTP Server id 15.1.2507.39; Tue, 15 Sep 2026 08:05:12 +0000
+Received: from smtp-relay-b.audit-trail-software.example ([192.0.2.61]) by mail-gw.larkspur-systems.example
+        with ESMTPS id 71f4be2c-90d1; Tue, 15 Sep 2026 08:05:09 +0000
+Received: from smtp-relay-a.audit-trail-software.example ([192.0.2.60]) by smtp-relay-b.audit-trail-software.example
+        with ESMTPS id 82c9af04-55e8; Tue, 15 Sep 2026 08:05:06 +0000
+Received: from listworker-01.internal.audit-trail (10.44.7.28) by smtp-relay-a.audit-trail-software.example
+        with ESMTPS id 5392db8a-11c4; Tue, 15 Sep 2026 08:05:02 +0000
+Authentication-Results: mx-in.larkspur-systems.example;
+	spf=pass smtp.mailfrom=audit-trail-software.example;
+	dkim=pass header.d=audit-trail-software.example header.s=ats2026 header.b=rNq7Wk3F;
+	dmarc=pass header.from=audit-trail-software.example policy.pct=100
+X-Mailer: AuditTrail-Weekly-Digest-Service
+List-Unsubscribe: <mailto:unsubscribe@audit-trail-software.example?subject=weekly-digest>
+Date: Tue, 15 Sep 2026 08:04:57 +0000
+From: Audit-Trail Software <noreply@audit-trail-software.example>
+Reply-To: support@audit-trail-software.example
+To: <dana.wexler@larkspur-systems.example>
+Subject: Weekly security review: confirm your recovery settings
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260915T080455Z-1d3e6b8c2@mail.audit-trail-software.example>
+
+Hello Dana Wexler,
+
+Audit-Trail Software (your contracted IT-control vendor) completed the
+scheduled weekly review against your Larkspur Systems identity.
+
+One item requires your confirmation before it is closed out automatically:
+ - Recovery phone on file will expire in 6 days.
+
+Review the status in the vendor portal:
+    https://portal.audit-trail-software.example/secure-check
+
+This digest runs weekly. You can unsubscribe any time from the portal or by
+replying to this address.
+
+Audit-Trail Software, Notifications
