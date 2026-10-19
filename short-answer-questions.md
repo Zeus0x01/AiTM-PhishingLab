@@ -1,107 +1,103 @@
 # short-answer-questions.md — Zeus0x01 AiTM Phishing Investigation
 
-One line per question; every answer is short and exact (an IP, a domain,
-an ID, a timestamp, a path, a token, an enum value, or a
-comma-separated pair).
-No explanations. Case-insensitive unless a format says otherwise;
-leading/trailing spaces ignored. Every question names its evidence
-sources and its answer format. The README, SAFETY.md and the dataset
-documentation files carry the scenario narrative; this file is
-questions only.
+Dataset v1.1.0 · incident INC-2417 · 21 core + 5 bonus.
 
-Dataset v1.0.0 · incident INC-2417 · 21 core + 5 bonus.
-Core questions are 1-21 (1 or 2 points, noted per question); bonuses
-are 22-26 (1 point each).
+One short answer per question. Case-insensitive unless a format says otherwise;
+leading/trailing spaces ignored. Answer formats are strict for grading.
+Hints are intentionally limited: reconstruct the chain from the evidence
+bundle rather than searching for a named field in a named file.
 
-## Core questions  (max 30 points, threshold 23)
+Core max 30 points · pass threshold 23 · bonus 22–26 are optional (+5).
 
-1. (1 pt) (Origin relay IPv4) Email 1 travels through a three-hop `Received:` chain. Read the bottommost `Received:` header (the first server that received the message). What connecting IPv4 address does that header record in brackets?
-Answer format: `IPv4 address`  (evidence: email-01-aitm-lure.eml)
+## Core questions
 
-2. (1 pt) (Relay-linked identity event) Use the IPv4 from the previous question. In `signins.json`, exactly one other event lists that same IPv4 as its source address. What is that event's `event_id`?
-Answer format: `event ID`  (evidence: email-01-aitm-lure.eml, signins.json)
+1. (1 pt) Which connecting IPv4 address first accepted the primary document-notification lure, before Larkspur’s own mail gateways handled it?
+Answer format: `IPv4 address`
 
-3. (2 pt) (Envelope vs DKIM mismatch) Email 2's Authentication-Results block shows the DKIM signature is valid yet the envelope sender domain differs from the DKIM signing domain. Submit the pair `<envelope-sender-domain>,<dkim-signing-domain>`.
-Answer format: `domain,domain`  (evidence: email-02-device-code.eml)
+2. (1 pt) That same origin address appears once in the identity sign-in stream against a non-human account. What is that event’s id?
+Answer format: `event ID`
 
-4. (2 pt) (Ticket correlation) Email 2's body cites a service ticket number (`Ref: ...`). Which identity dataset file (by filename) contains an event whose properties repeat that exact ticket reference?
-Answer format: `ticket-ref,filename`  (evidence: email-02-device-code.eml, identity-audit.json)
+3. (2 pt) On the device-activation message, authentication results show a valid DKIM signature while the envelope sender domain does not match the signing domain. Submit `<envelope-sender-domain>,<dkim-signing-domain>`.
+Answer format: `domain,domain`
 
-5. (1 pt) (Decoded destination) Email 1's link carries a URL-safe base64 parameter `u=`. Decode it. The resulting page is captured in `saved-page.html`. Submit only the URL path of the decoded destination.
-Answer format: `/path/segment`  (evidence: email-01-aitm-lure.eml, saved-page.html)
+4. (2 pt) The device-activation body cites an internal service ticket. Which dataset file records that same ticket on an identity event, and what is the ticket string?
+Answer format: `ticket-ref,filename`
 
-6. (2 pt) (Request ID corroboration) The decoded URL contains `client_request_id=<value>`. That value appears verbatim in exactly one other JSON dataset (in a request_uri field). Submit `<dataset-filename>,<event_id>`.
-Answer format: `filename,event-id`  (evidence: saved-page.html, connection-events.json)
+5. (1 pt) The private review link in the primary lure hides its real destination in a URL-safe parameter. After decoding, what path does the victim actually land on (path only, no query string)?
+Answer format: `/path/segment` (example shape: `/signin/service`)
 
-7. (1 pt) (Rendered-only token) `login-page.html` and `saved-page.html` differ. The hidden `__tk` input is empty in the static duplicate but populated in the saved snapshot. What is that exact token value?
-Answer format: `exact token string`  (evidence: login-page.html, saved-page.html)
+6. (2 pt) That destination carries a client request id which is echoed in network telemetry. Submit `<dataset-filename>,<event_id>` for the matching observation.
+Answer format: `filename,event-id`
 
-8. (1 pt) (Timing-gate behavior) Read `page-source.js`: after the DON'T-RUN performance.now() wait loop resolves, what final behavior does the script produce? Choose exactly one: ALERT, REDIRECT, CONSOLE_ONLY, FORM_FREEZE.
-Answer format: `enum token from fixed list`  (evidence: page-source.js, saved-page.html)
+7. (1 pt) Compare the static login replica with the browser-saved snapshot. What token value is present only after the page script has run?
+Answer format: `exact token string`
 
-9. (2 pt) (Mailbox rule identity) Find the `NewInboxRule` record in `mailbox-audit.json` whose `client_ip` equals the suspicious sign-in's `source_ip` from the 08:47:32Z sign-in in `signins.json`. Submit `<rule_name>,<event_id>`.
-Answer format: `rule-name,event-id`  (evidence: mailbox-audit.json, signins.json)
+8. (1 pt) After the local timing gate in the page script finishes, what does the script actually do with the result? Choose one: ALERT, REDIRECT, CONSOLE_ONLY, FORM_FREEZE.
+Answer format: `enum token`
 
-10. (1 pt) (Attacker IP row count) How many rows in `signins.json` list the suspicious sign-in's `source_ip` from the 08:47:32Z event as their own source_ip?
-Answer format: `numeric value`  (evidence: signins.json)
+9. (2 pt) Dana’s high-risk successful Exchange sign-in just after 08:47 UTC shares its source address with a newly created inbox rule. Submit `<rule_name>,<event_id>`.
+Answer format: `rule-name,event-id`
 
-11. (2 pt) (Alert linkage) Which alert in `alerts.json` lists the 08:47:32Z sign-in event as a `related_event_ids` member, and what severity did that alert carry?
-Answer format: `alert-id,severity`  (evidence: alerts.json, signins.json)
+10. (1 pt) How many sign-in rows in total use that same suspicious source address?
+Answer format: `numeric value`
 
-12. (2 pt) (Device-code chain pair) In `identity-audit.json`, locate the `devicecode_token_grant` for dana.wexler. Which sign-in event in `signins.json` shares the SAME `correlation_id`? Submit `<correlation_id>,<sign-in event_id>`.
-Answer format: `correlation-id,event-id`  (evidence: identity-audit.json, signins.json)
+11. (2 pt) Which alert first frames that successful high-risk sign-in as risk activity, and at what severity?
+Answer format: `alert-id,severity`
 
-13. (2 pt) (Forwarding match) Somewhere in `mailbox-audit.json` a `SetForwarding` record gives an external forwarding address whose DOMAIN also appears as the sender domain of Email 1. Submit `<event_id>,<domain>`.
-Answer format: `event-id,domain`  (evidence: mailbox-audit.json, email-01-aitm-lure.eml)
+12. (2 pt) The successful device-code grant for Dana shares a session correlation token with exactly one sign-in row. Submit `<correlation_id>,<sign-in event_id>`.
+Answer format: `correlation-id,event-id`
 
-14. (1 pt) (IOC match to family) `redirect-hop-02.txt` lists one defanged, publicly reported domain. Confirm in the cited threat-intel report which phishing family it was associated with, submitting the exact defanged form plus the family name. Citation: Sekoia TDR, 'Tycoon 2FA: an in-depth analysis of the latest version of the AiTM phishing kit' (2025-03-25).
-Answer format: `defanged-domain,family-name`  (evidence: redirect-hop-02.txt)
+13. (2 pt) Mailbox forwarding was pointed at an external address whose domain also authored the primary lure’s return path. Submit `<forwarding-event-id>,<domain>`.
+Answer format: `event-id,domain`
 
-15. (1 pt) (MITRE technique id) The Darktrace report, 'MFA Under Attack: AiTM Phishing Kits Abusing Legitimate Services' (darktrace.com/blog/mfa-under-attack-aitm-phishing-kits-abusing-legitimate-services, published 2025-04-29), maps its observed campaign to the credential-access technique it names 'Steal Web Session Cookie'. What is that technique's MITRE ATT&CK ID?
-Answer format: `ATT&CK technique ID (e.g. T1xxx)`  (evidence: field-reference.md)
+14. (1 pt) One defanged host appears in the second redirect-hop capture and is tied, in public AiTM kit reporting, to a known phishing family. Submit `<defanged-domain>,<family-name>`.
+Answer format: `defanged-domain,family-name`
 
-16. (1 pt) (Device-code actor) Microsoft Threat Intelligence (blog post published 2025-02-13, 'Storm-2372 conducts device code phishing campaign') documents active device-code phishing. Which tracked actor is named there for this technique? Use only the actor designation string.
-Answer format: `actor designation (e.g._xx-####)`  (evidence: device-code-page.html)
+15. (1 pt) Public analysis of AiTM kits that harvest cloud sessions maps the credential-access behavior “Steal Web Session Cookie” to which MITRE ATT&CK technique ID? (Also noted in the lab field reference.)
+Answer format: `T####`
 
-17. (2 pt) (Sorted persistence chain) Provide the event IDs of the malicious sign-in, the malicious 'NewInboxRule' creation and the malicious 'SetForwarding' mutation above (the attacker's first-to-last persistence steps), in ascending chronological order, comma-separated.
-Answer format: `event-id_1,event-id_2,event-id_3 (in order)`  (evidence: signins.json, mailbox-audit.json, identity-audit.json)
+16. (1 pt) Which tracked actor designation is publicly associated with large-scale device-code phishing against Microsoft 365 identities (Microsoft TI naming)?
+Answer format: `actor designation`
 
-18. (2 pt) (Delivery / click / sign-in ladder) Sort the three events that open the attack chain into chronological order: mail delivery (mailbox-audit), the initial click connection (network), and the first successful malicious sign-in (identity). Submit all three `event_id`s comma-separated ascending.
-Answer format: `event-id_1,event-id_2,event-id_3 (in order)`  (evidence: mailbox-audit.json, connection-events.json, signins.json)
+17. (2 pt) Order the attacker’s first successful malicious sign-in, the malicious inbox-rule creation, and the external forwarding change — ascending by time.
+Answer format: `event-id_1,event-id_2,event-id_3`
 
-19. (1 pt) (Incident classification) Based only on the supplied dataset, choose the strongest classification that your correlation supports. Choose exactly one: PHISHING_CLICK_ONLY, PHISHING_REPORT_ONLY, SESSION_HIJACKED, DATA_EXFIL_CONFIRMED.
-Answer format: `enum token from fixed list`  (evidence: signins.json, mailbox-audit.json)
+18. (2 pt) Order the chain openers ascending by time: delivery of the primary lure into Dana’s mailbox, the first network fetch of the decoded sign-in URL, and the first successful malicious sign-in.
+Answer format: `event-id_1,event-id_2,event-id_3`
 
-20. (1 pt) (Legitimate security email) One of the three emails is a legitimate contracted-vendor digest. Which Message-ID belongs to it? (Angle brackets optional.) Note: the vendor relationship is documented elsewhere in the dataset.
-Answer format: `full message-id`  (evidence: email-03-legitimate-review.eml, evidence-inventory.md)
+19. (1 pt) Strongest classification supported by the full package (not by a single email alone): PHISHING_CLICK_ONLY, PHISHING_REPORT_ONLY, SESSION_HIJACKED, DATA_EXFIL_CONFIRMED.
+Answer format: `enum token`
 
-21. (1 pt) (Benign older rule) `mailbox-audit.json` contains several `NewInboxRule` events. Which one was created well before the current incident window and is therefore unrelated to it?
-Answer format: `event-id`  (evidence: mailbox-audit.json)
+20. (1 pt) Which Message-ID belongs to the legitimate contracted-vendor digest (not a lure)? Angle brackets optional.
+Answer format: `message-id`
 
-## Bonus questions  (max 5 points)
+21. (1 pt) One inbox rule on Dana’s mailbox long predates the incident window and is unrelated. What is its event id?
+Answer format: `event-id`
 
-22. (1 pt) (Route stamp decode) Email 1 carries the header `X-Msg-Route: <base64>`. Decode it and submit the plaintext value.
-Answer format: `exact decoded token`  (evidence: email-01-aitm-lure.eml)
+## Bonus questions
 
-23. (1 pt) (Node token decode) `page-source.js` hides a runtime value via its XOR-based `_dk` helper (the array is used only to compute `KIT.counters.node`, which the DOM shows in the saved snapshot's node field). Decode it and submit the plaintext value.
-Answer format: `exact decoded token`  (evidence: page-source.js, saved-page.html)
+22. (1 pt) Decode the `X-Msg-Route` stamp on the primary lure.
+Answer format: `exact decoded token`
 
-24. (1 pt) (Missing telemetry) Which step is definitively NOT captured anywhere in the supplied dataset, even though the incident's shape implies the real-world step had to occur? Choose exactly one: DEVICE_CODE_GENERATION, MFA_PROMPT_DISPLAYED, INBOX_RULE_ACTIVATION, SESSION_COOKIE_CAPTURE.
-Answer format: `enum token from fixed list`  (evidence: evidence-inventory.md)
+23. (1 pt) Recover the node stamp the page script derives via its XOR helper (shown in the saved snapshot’s node field).
+Answer format: `exact decoded token`
 
-25. (1 pt) (Earliest audit timestamp) In `identity-audit.json`, which is the chronologically EARLIEST `timestamp_utc` value found among ALL rows in the file?
-Answer format: `ISO 8601 UTC timestamp string`  (evidence: identity-audit.json)
+24. (1 pt) Which step is implied by a real AiTM outcome but is not recorded anywhere in this package? DEVICE_CODE_GENERATION, MFA_PROMPT_DISPLAYED, INBOX_RULE_ACTIVATION, SESSION_COOKIE_CAPTURE.
+Answer format: `enum token`
 
-26. (1 pt) (Received-hop counts) How many `Received:` headers does Email 1 have vs Email 3 respectively? Submit `<count_email1>,<count_email3>`.
-Answer format: `n,n`  (evidence: email-01-aitm-lure.eml, email-03-legitimate-review.eml)
+25. (1 pt) Earliest `timestamp_utc` value present in the identity-audit dataset (any row).
+Answer format: `ISO 8601 UTC timestamp`
 
-## Final flag
+26. (1 pt) How many `Received:` headers does the primary lure have versus the legitimate vendor digest?
+Answer format: `n,n`
 
-Four flag fragments fall out of four independent evidence
-categories: (F1) email/header evidence, (F2) static web
-artifact, (F3) identity/audit-log correlation, (F4) published
-threat-intelligence reference. F3 and F4 correspond to core
-questions 12 and 15; F1 and F2 are bonus decodes (questions
-22 and 23).
-Once your core score clears the threshold, submit all four
-fragment codes on the lab portal to release the final flag.
+## Flag fragments (optional portal / platform)
+
+Four fragments fall out of independent work:
+
+- **F1** — route stamp from the primary lure header (bonus decode)
+- **F2** — node stamp from the page script (bonus decode)
+- **F3** — correlation id shared by the device-code grant and its sign-in (use the correlation id only, not a comma pair)
+- **F4** — MITRE technique id for Steal Web Session Cookie
+
+Canonical shape: `FLAG{AiTM-<F1>-<F2>-<F3>-<F4>}`
