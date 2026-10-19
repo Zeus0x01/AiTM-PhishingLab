@@ -4,99 +4,20 @@
   "incident_ref": "INC-2417",
   "provenance": "synthetic training data; not a genuine security-product export; modeled on XDR alert shape",
   "records": [
-    {
-      "alert_id": "ALERT-7712",
-      "created_utc": "2026-09-15T09:05:10Z",
-      "severity": "medium",
-      "category": "Sign-in risk detected",
-      "affected_account": "dana.wexler@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-58103"
-      ],
-      "evidence_refs": [
-        "signins.json:EVT-58103"
-      ],
-      "alert_status": "new"
-    },
-    {
-      "alert_id": "ALERT-7721",
-      "created_utc": "2026-09-15T08:59:55Z",
-      "severity": "low",
-      "category": "Mailbox rule created",
-      "affected_account": "dana.wexler@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-58314"
-      ],
-      "evidence_refs": [
-        "mailbox-audit.json:EVT-58314"
-      ],
-      "alert_status": "new"
-    },
-    {
-      "alert_id": "ALERT-7733",
-      "created_utc": "2026-09-15T09:14:59Z",
-      "severity": "medium",
-      "category": "Device registration from new location",
-      "affected_account": "dana.wexler@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-59015"
-      ],
-      "evidence_refs": [
-        "identity-audit.json:EVT-59015"
-      ],
-      "alert_status": "new"
-    },
-    {
-      "alert_id": "ALERT-7741",
-      "created_utc": "2026-09-15T09:20:11Z",
-      "severity": "medium",
-      "category": "Forwarding configuration change",
-      "affected_account": "dana.wexler@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-58315"
-      ],
-      "evidence_refs": [
-        "mailbox-audit.json:EVT-58315"
-      ],
-      "alert_status": "new"
-    },
-    {
-      "alert_id": "ALERT-7752",
-      "created_utc": "2026-09-15T08:10:00Z",
-      "severity": "info",
-      "category": "Consent grant recorded",
-      "affected_account": "sara.okoye@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-59011"
-      ],
-      "evidence_refs": [
-        "identity-audit.json:EVT-59011"
-      ],
-      "alert_status": "resolved_false_positive"
-    },
-    {
-      "alert_id": "ALERT-7761",
-      "created_utc": "2026-09-15T09:55:40Z",
-      "severity": "low",
-      "category": "Repeated failed sign-in attempts (transient peer)",
-      "affected_account": "sara.okoye@larkspur-systems.example",
-      "related_event_ids": [
-        "EVT-58125"
-      ],
-      "evidence_refs": [
-        "signins.json:EVT-58125"
-      ],
-      "alert_status": "resolved"
-    },
-    {
-      "alert_id": "ALERT-7770",
-      "created_utc": "2026-09-15T09:58:30Z",
-      "severity": "info",
-      "category": "Service health anomaly - mail flow",
-      "affected_account": "tenant:larkspur-systems.example",
-      "related_event_ids": [],
-      "evidence_refs": [],
-      "alert_status": "resolved"
-    }
+    {"alert_id": "ALERT-7800", "created_utc": "2026-09-13T12:00:00Z", "severity": "low", "category": "Policy", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"},
+    {"alert_id": "ALERT-7801", "created_utc": "2026-09-14T09:30:00Z", "severity": "low", "category": "Email forwarding", "affected_account": "svc-hygiene@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"},
+    {"alert_id": "ALERT-7802", "created_utc": "2026-09-14T18:00:00Z", "severity": "medium", "category": "Policy", "affected_account": "svc-hygiene@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "resolved"},
+    {"alert_id": "ALERT-7752", "created_utc": "2026-09-15T08:10:00Z", "severity": "info", "category": "Consent grant recorded", "affected_account": "sara.okoye@larkspur-systems.example", "related_event_ids": ["EVT-59011"], "evidence_refs": ["identity-audit.json:EVT-59011"], "alert_status": "resolved_false_positive"},
+    {"alert_id": "ALERT-7803", "created_utc": "2026-09-15T08:10:00Z", "severity": "info", "category": "Malware", "affected_account": "sara.okoye@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"},
+    {"alert_id": "ALERT-7721", "created_utc": "2026-09-15T08:59:55Z", "severity": "low", "category": "Mailbox rule created", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": ["EVT-58314"], "evidence_refs": ["mailbox-audit.json:EVT-58314"], "alert_status": "new"},
+    {"alert_id": "ALERT-7712", "created_utc": "2026-09-15T09:05:10Z", "severity": "medium", "category": "Sign-in risk detected", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": ["EVT-58103"], "evidence_refs": ["signins.json:EVT-58103"], "alert_status": "new"},
+    {"alert_id": "ALERT-7733", "created_utc": "2026-09-15T09:14:59Z", "severity": "medium", "category": "Device registration from new location", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": ["EVT-59015"], "evidence_refs": ["identity-audit.json:EVT-59015"], "alert_status": "new"},
+    {"alert_id": "ALERT-7741", "created_utc": "2026-09-15T09:20:11Z", "severity": "medium", "category": "Forwarding configuration change", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": ["EVT-58315"], "evidence_refs": ["mailbox-audit.json:EVT-58315"], "alert_status": "new"},
+    {"alert_id": "ALERT-7804", "created_utc": "2026-09-15T09:50:00Z", "severity": "medium", "category": "Malware", "affected_account": "marcus.hale@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"},
+    {"alert_id": "ALERT-7761", "created_utc": "2026-09-15T09:55:40Z", "severity": "low", "category": "Repeated failed sign-in attempts (transient peer)", "affected_account": "sara.okoye@larkspur-systems.example", "related_event_ids": ["EVT-58125"], "evidence_refs": ["signins.json:EVT-58125"], "alert_status": "resolved"},
+    {"alert_id": "ALERT-7770", "created_utc": "2026-09-15T09:58:30Z", "severity": "info", "category": "Service health anomaly - mail flow", "affected_account": "tenant:larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "resolved"},
+    {"alert_id": "ALERT-7805", "created_utc": "2026-09-15T11:20:00Z", "severity": "low", "category": "Mass download", "affected_account": "priya.nair@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "resolved"},
+    {"alert_id": "ALERT-7806", "created_utc": "2026-09-15T14:00:00Z", "severity": "info", "category": "Policy", "affected_account": "priya.nair@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"},
+    {"alert_id": "ALERT-7807", "created_utc": "2026-09-15T16:30:00Z", "severity": "low", "category": "Mass download", "affected_account": "dana.wexler@larkspur-systems.example", "related_event_ids": [], "evidence_refs": [], "alert_status": "new"}
   ]
 }
