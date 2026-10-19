@@ -4,7 +4,7 @@ Dataset version: 1.1.0
 
 SHA-256 of the released archive:
 
-`75427f77890ee90c11820074c5a4e00aff29e476c7d25d3fc30f926b2de3dd37`
+`b440667356d2ef40a57d25ab929433d9bdf9cb59356c0a454c37984eb826d335`
 
 File-level hashes are inside the bundle (SHA256SUMS) and the same
 manifest ships at the repository root. Verify with:
