@@ -4,119 +4,167 @@
 
 Welcome to the Zeus0x01 lab series. This is a **downloadable, offline,
 tool-agnostic investigation** in the style of CyberDefenders / HTB
-DFIR-style forensics: you download the evidence bundle, analyze it with the
-tools of your choice, answer short questions, and (optionally) verify your
-chain on the lab portal.
+DFIR forensics: you download the evidence bundle, analyze it with the tools
+of your choice, and answer short questions.
 
-The incident: a fictional employee at fictional **Larkspur Systems**
-received an email that looks like an ordinary corporate document
-notification. The message contains a suspicious destination represented by a
-static redirect chain, followed by identity, mailbox, and network evidence
-plus a set of XDR-style alerts. A second email variant pushes a device-code
-"activation" pretext. A third, legitimate vendor digest is included as a
-false-positive test. Your job is to reconstruct what actually happened and
-produce the final flag.
+The hosted web portal is **optional**. It is only an answer-verification
+surface. You can complete the full lab without it. Platform-hosted installs
+(CyberDefenders, HTB, CTFd-style) grade from the maintainer **question bank
+JSON**, not from the portal.
+
+## Scenario (no spoilers)
+
+A fictional employee at fictional **Larkspur Systems** receives mail that
+looks like an ordinary corporate document notification. The evidence set
+includes:
+
+- a suspicious destination represented by a static redirect-chain capture
+- identity, mailbox, and network records
+- XDR-style alerts
+- a second message that uses a device-code “activation” pretext
+- a third, legitimate vendor digest (false-positive test)
+
+Your job is to reconstruct what happened, answer the short questions, and
+(if used) assemble the flag fragments described in the question file.
 
 > **Do not contact any attacker infrastructure.** All indicators in the
 > dataset are either synthetic reserved names (RFC `.example` / RFC 5737
-> documentation IP ranges) or defanged public IOC text; see `SAFETY.md`.
-> One published IOC domain appears **defanged** for threat-intel pivoting
-> only; it is never resolvable in the artifacts and must stay that way.
+> documentation IP ranges) or **defanged** public IOC text. See `SAFETY.md`.
+> One published IOC domain appears defanged for threat-intel pivoting only;
+> it is never resolvable in the artifacts and must stay that way.
 
 ## What you get
 
-The training lab is distributed as an evidence ZIP you open, extract and
-investigate locally. The ZIP is the primary deliverable; the hosted web
-portal (this site) exists only as an optional answer-verification surface.
-The complete evidence bundle you need is provided here:
+**Primary deliverable:** the evidence ZIP.
 
-`downloads/Zeus0x01-AiTM-Investigation.zip`
+```text
+downloads/Zeus0x01-AiTM-Investigation.zip
+```
 
-Extract anywhere; no SIEM, no subscription, and no Microsoft tenant are
-required. The bundle includes:
+Extract anywhere. No SIEM, no subscription, and no Microsoft tenant are
+required. The same evidence also lives in this repository under `mail/`,
+`artifacts/`, and related paths so you can work from a clone if preferred.
 
-- `mail/eml/` — three RFC 5322 email artifacts (lure, device-code variant,
-  legitimate security-review digest)
-- `artifacts/web/` — static redirect-hop capture records, a login-page
-  replica, a browser-saved snapshot, the page script, and a device-code
-  decoy page (all inert; zero network requests)
-- `artifacts/identity/` — synthetic sign-in and identity-audit records
-- `artifacts/logs/` — synthetic alerts, mailbox audit, and a normalized
-  incident event stream
-- `artifacts/network/` — synthetic network observations
-- `artifacts/documentation/` — field reference + evidence inventory
-- `tools/optional-import-examples/` — optional Splunk/Elastic/PowerShell/
-  Python parsing snippets
+Bundle layout:
+
+| Path | Contents |
+|------|----------|
+| `mail/eml/` | Three RFC 5322 emails (lure, device-code variant, legitimate vendor digest) |
+| `artifacts/web/` | Redirect-hop capture records, login-page replica, browser-saved snapshot, page script, device-code decoy (all inert; zero network requests) |
+| `artifacts/identity/` | Synthetic sign-in and identity-audit records |
+| `artifacts/logs/` | Synthetic alerts, mailbox audit, incident event stream / timeline |
+| `artifacts/network/` | Synthetic network observations |
+| `artifacts/documentation/` | Field reference + evidence inventory |
+| `tools/optional-import-examples/` | Optional Splunk / Elastic / PowerShell / Python parsing snippets |
+
+Trainee questions live in:
+
+```text
+short-answer-questions.md
+```
+
+(21 core + 5 bonus; every item lists points, answer format, and evidence sources.)
 
 ## Learning objectives
 
 - Header triage: hop chains, SPF/DKIM/DMARC verdicts and their limits,
   envelope/DKIM misalignment, encoded parameter decoding
-- Static HTTP-analysis: redirect-hop records, replica-page snapshots,
+- Static HTTP analysis: redirect-hop records, replica-page snapshots,
   local-vs-rendered state differences, XOR-obfuscated script logic
 - Identity correlation: sign-ins, token grants, device-code activity,
-  device registration, MFA persistence
-- Alert triage: filtering genuine signals from benign noise
+  device registration, MFA-related signals
+- Alert triage: real signals vs benign noise
 - Timeline reconstruction: ordered chain from lure delivery to persistence
-- Threat-intelligence pivoting: verified public IOC to attributed phishing
-  family, plus MITRE ATT&CK technique mapping
-- Classification discipline: choosing the strongest supported conclusion
+- Threat-intelligence pivoting: defanged public IOC → attributed family,
+  plus MITRE ATT&CK technique mapping (facts mirrored in the documentation
+  artifacts for offline use)
+- Classification discipline: strongest conclusion the evidence supports
 
 ## Prerequisites
 
-- Any text editor; a terminal (PowerShell, bash, zsh)
-- Python 3 (or PowerShell) for quick parsing, or jq / grep
-- CyberChef (offline build) or plain `base64 -d` / Python for decodes
-- Optional: Splunk or a free Elastic instance; optional: MHA ( nto required)
+- Any text editor and a terminal (PowerShell, bash, or zsh)
+- Python 3 (or PowerShell) for quick parsing, or `jq` / `grep` / `rg`
+- CyberChef (offline build) or plain `base64` / Python for decodes
+- Optional: Splunk or a free Elastic instance
+- Optional: Message Header Analyzer (MHA) — **not** required
 
-## Question workflow
+## How to solve (offline path — complete)
 
-1. Download and extract the evidence ZIP above (verify the SHA-256 against
-   the `SHA256SUMS` manifest in the repository).
-2. Answer the questions in `short-answer-questions.md` (21 core + 5 bonus).
-   Every question names its artifact sources and its answer format.
-3. Submit each answer through the hosted portal below (verification is
-   server-side; per-question correctness is scored on the portal).
-4. As you solve, four **flag fragments** fall out of the evidence: one from
-   email/header evidence, one from the web artifacts, one from identity/audit
-   logs, and one from the published threat-intel report. Enter all four on
-   the portal to release the final flag once your core score clears the
-   threshold. Full scoring rules: `instructor/scoring-rubric.md` in the
-   instructor pack (not distributed to trainees; questions carry points
-   metadata in the question bank instead).
-5. Offline mode: the dataset is fully usable without the portal; the hosted
-   portal is only an optional verification surface. Platform-hosted installs
-   (HTB/CyberDefenders/CTFd-style) grade answers from the **question bank
-   JSON** supplied by the lab maintainer.
+1. Download `downloads/Zeus0x01-AiTM-Investigation.zip` **or** clone this repo.
+2. Verify integrity with `SHA256SUMS` (see below).
+3. Extract / open the evidence files listed above.
+4. Work through `short-answer-questions.md` in order (or any order you prefer).
+5. Record short answers exactly in the formats requested.
+6. Flag fragments (if your deployment uses them) fall out of four evidence
+   categories described in the question file. You do **not** need the portal
+   to obtain or justify those values from the artifacts.
+
+That path is sufficient for self-study and for platform grading.
+
+## Portal (optional only)
+
+If a hosted portal is deployed for this lab:
+
+- It is **not required** to finish the investigation.
+- It may score submitted short answers and/or release a canonical flag after
+  a core-point threshold.
+- Verification is server-side and must be configured by the operator
+  (environment variables). An unconfigured deployment should not expose
+  answers in client-side code.
+
+If no portal is available, ignore it and submit answers through whatever
+interface your platform provides (or keep a local answer sheet).
+
+## Platform grading
+
+For CyberDefenders / HTB / CTFd-style hosting:
+
+- Grade from the maintainer **question bank JSON** (instructor pack),
+  not from the optional portal.
+- Normalize answers per the bank (trim, case rules, Message-ID brackets, etc.).
+- Core questions carry the pass threshold; bonus questions are extra credit.
+- Full scoring rules live in the instructor pack (`scoring-rubric.md`), which
+  is **not** distributed to trainees.
 
 ## Tooling suggestions (all optional)
 
 - `jq`, `python -m json.tool`, PowerShell `ConvertFrom-Json` for JSON
-- plain `grep`/`rg` over the `.eml` and web artifacts
-- CyberChef offline recipes for base64/XOR decoding
-- any SIEM import hints live in `tools/optional-import-examples/`
+- `grep` / `rg` over `.eml` and web artifacts
+- CyberChef offline recipes for base64 / XOR decoding
+- SIEM import hints in `tools/optional-import-examples/`
 
-## Safety summary (see SAFETY.md for full model)
+## Safety summary
 
-* No live malware, no credential capture, no session replay, no device-code
-  flow, no reverse proxy anywhere in the dataset.
-* The web artifacts make **zero network requests** (no fetch, XHR,
-  WebSocket, sendBeacon, EventSource, external `<img>`/`<script>`/`<link>`).
-* Trainee-facing links point only at RFC-reserved synthetic names or a
-  defanged public IOC that is never contacted. None lead to real attacker
-  infrastructure.
-* The device-code scenario exists only as text in the email plus a static
-  decoy page; no real Microsoft code is generated and no live service is
-  involved.
+Full model: `SAFETY.md`.
+
+- No live malware, credential capture, session replay, live device-code flow,
+  or reverse proxy in the dataset.
+- Web artifacts make **zero network requests** (no `fetch`, XHR, WebSocket,
+  `sendBeacon`, EventSource, or external `<img>` / `<script>` / `<link>`).
+- Trainee-facing names are RFC-reserved synthetic hosts or a single defanged
+  public IOC that must never be contacted.
+- The device-code scenario is email text plus a static decoy page only.
 
 ## Dataset integrity
 
-Verify the extracted evidence bundle with the `SHA256SUMS` manifest shipped
-in the repository root (run: `sha256sum -c SHA256SUMS` on Linux/macOS, or
-`Get-FileHash` on Windows). Documented integrity and safety checks are
-executed at build time and reproduced in the release notes for each dataset
-version.
+Manifest: `SHA256SUMS` in the repository root (covers the evidence ZIP and
+critical evidence files).
+
+Linux / macOS:
+
+```bash
+sha256sum -c SHA256SUMS
+```
+
+Windows (PowerShell), example for one file:
+
+```powershell
+Get-FileHash .\downloads\Zeus0x01-AiTM-Investigation.zip -Algorithm SHA256
+```
+
+Compare the digest to the matching line in `SHA256SUMS`. Re-download if any
+check fails before analysis.
 
 ## Version
 
-Dataset `Zeus0x01-AiTM-Investigation` v1.0.0 (incident INC-2417).
+Dataset `Zeus0x01-AiTM-Investigation` **v1.0.0** (incident **INC-2417**).
