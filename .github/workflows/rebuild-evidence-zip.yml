@@ -1,0 +1,77 @@
+name: Rebuild evidence ZIP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'artifacts/**'
+      - 'mail/**'
+      - 'short-answer-questions.md'
+      - 'README.md'
+      - 'SAFETY.md'
+      - '.github/workflows/rebuild-evidence-zip.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build evidence package
+        run: |
+          set -euo pipefail
+          ROOT=Zeus0x01-AiTM-Investigation
+          rm -rf "$ROOT" "$ROOT.zip"
+          mkdir -p "$ROOT"
+          # Trainee package layout
+          cp README.md SAFETY.md short-answer-questions.md "$ROOT/" 2>/dev/null || true
+          cp -a mail "$ROOT/"
+          cp -a artifacts "$ROOT/"
+          if [ -d tools/optional-import-examples ]; then
+            mkdir -p "$ROOT/tools"
+            cp -a tools/optional-import-examples "$ROOT/tools/"
+          fi
+          # File-level hashes inside the bundle
+          ( cd "$ROOT" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum | sed 's| \./| |' > SHA256SUMS )
+          ( cd "$ROOT" && zip -qr "../$ROOT.zip" . )
+          ZIP_HASH=$(sha256sum "$ROOT.zip" | awk '{print $1}')
+          echo "ZIP_HASH=$ZIP_HASH" >> "$GITHUB_ENV"
+          echo "Built $ROOT.zip"
+          sha256sum "$ROOT.zip"
+          mkdir -p downloads
+          mv "$ROOT.zip" downloads/Zeus0x01-AiTM-Investigation.zip
+          cat > downloads/INTEGRITY.md << EOF
+          # Archive integrity - Zeus0x01-AiTM-Investigation
+
+          Dataset version: 1.1.0
+
+          SHA-256 of the released archive:
+
+          \`$ZIP_HASH\`
+
+          File-level hashes are inside the bundle (SHA256SUMS) and the same
+          manifest ships at the repository root. Verify with:
+
+          \`\`\`
+          sha256sum -c SHA256SUMS   # after extraction
+          \`\`\`
+          EOF
+          # tidy INTEGRITY leading spaces from heredoc
+          sed -i 's/^          //' downloads/INTEGRITY.md
+
+      - name: Commit updated ZIP and INTEGRITY
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/Zeus0x01-AiTM-Investigation.zip downloads/INTEGRITY.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: rebuild evidence ZIP (dataset v1.1.0)"
+          git push
