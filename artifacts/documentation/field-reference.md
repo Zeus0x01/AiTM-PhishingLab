@@ -1,4 +1,4 @@
-# Field reference — Zeus0x01 AiTM Investigation (dataset v1.0.0)
+# Field reference — Zeus0x01 AiTM Investigation (dataset v1.1.0)
 
 All timestamps are UTC in ISO 8601 format (`YYYY-MM-DDTHH:MM:SSZ`).
 All IP addresses in the dataset are RFC 5737 documentation ranges or other
@@ -77,14 +77,8 @@ correlation_id before concluding.**
 Normalized event stream: **one JSON object per line**, no array wrapper.
 Each record is COPIED from an underlying dataset; every record retains
 `source_dataset` and `source_event_id` so the original row is always
-traceable. The only generated fields are `category` (normalized label) and
-`derived_summary` (always marked implicitly in the file header comment of
-the schema below). No facts absent from the underlying records are
-introduced. Reconstruct the timeline independently by reading the
+traceable. Reconstruct the timeline independently by reading the
 underlying datasets directly and sorting by `timestamp_utc`.
-
-Each line:
-`{"source_dataset":"...","source_event_id":"...","timestamp_utc":"...","category":"authentication|authorization|account_settings|mailbox|network|alert","actor":"...","derived_summary":"..."}`
 
 ### `artifacts/network/connection-events.json`
 
@@ -100,50 +94,29 @@ All files in `artifacts/web/` are **inert**: zero network requests, no
 external resources, no credential collection, no session handling. See
 SAFETY.md for the full inert model.
 
-- `redirect-hop-01.txt` / `redirect-hop-02.txt` — static, analyst-authored
-  capture records describing one observed hop each. Reading them performs
-  no request; they are records of a *simulated* chain, not live redirects.
-- `login-page.html` — static duplicate of a "sign-in to view shared
-  documents" page. The form is disabled (`onsubmit` returns false), fields
-  are inert, and the only script is the local `page-source.js`.
-- `saved-page.html` — a browser-saved snapshot of the same page captured
-  *after* the page script ran, so it contains rendered state that the
-  static source does not. Its snapshot comment records where it came from.
-- `page-source.js` — standalone, independently written script used by the
-  login page. All behavior is local: XOR-based string deobfuscation, one
-  simulated timing-gate, a decoy CAPTCHA state, and local-only diagnostics.
-  There is no fetch, XMLHttpRequest, WebSocket, sendBeacon or EventSource.
-  Nothing is submitted anywhere.
-- `device-code-page.html` — static decoy for the device-code lure variant.
-  The field is read-only, the button is disabled, and there is no form
-  action and no code entry flow.
+- `redirect-hop-01.txt` / `redirect-hop-02.txt` — static capture records of a simulated chain.
+- `login-page.html` — static sign-in page replica (form disabled).
+- `saved-page.html` — browser-saved snapshot after local script ran.
+- `page-source.js` — local-only script (no network).
+- `device-code-page.html` — static decoy for the device-activation message.
 
 ## Email artifacts
 
-Mail files are plain RFC 5322 `.eml` text; open with any mail tool
-(Thunderbird view-source, Python, CyberChef, a text editor). Bodies are
-7-bit `text/plain`; every header is decodable without attachments.
+Mail files are plain RFC 5322 `.eml` text. Filenames are **neutral** (timestamp-based);
+classify each message by headers and body, not by path.
 
-- `email-01-aitm-lure.eml` — shares the document-notification pretext with
-  Email 3, but is a different sender chain (typical of lookalike
-  notification services).
-- `email-02-device-code.eml` — the device-code lure variant (static decoy
-  page included in `artifacts/web/`).
-- `email-03-legitimate-review.eml` — legitimate security-review digest.
+- `msg-20260914-090147.eml` — document-notification theme
+- `msg-20260915-080720.eml` — service / device-activation theme
+- `msg-20260915-080455.eml` — contracted vendor security digest
 
-The `Authentication-Results` verdicts in these files are synthetic labels
-attached to a fictional domain set; do not generalize them, and note that
-**passing SPF, DKIM, or DMARC alone never establishes that a message is
-benign** (and one of the lure emails deliberately passes all three).
+**Passing SPF, DKIM, or DMARC alone never establishes that a message is benign.**
 
 ## Cross-file consistency rules
 
-- Event IDs are globally unique across all datasets; there are no overlaps.
-- `correlation_id` values tie together events recorded as one session
-  (identity + mailbox + network). Two distinct values exist in this
-  incident; some events intentionally do not carry one.
-- Message-IDs in mailbox-audit rows match the `.eml` Message-ID headers
-  exactly (including angle brackets).
-- Email 3's vendor portal host is referenced in benign connection rows used
-  by other users; dana has NO benign connections recorded to it in this
-  dataset window.
+- Event IDs are globally unique across all datasets.
+- `correlation_id` values tie related session events; two distinct values exist in this incident.
+- Message-IDs in mailbox-audit rows match the `.eml` Message-ID headers (including angle brackets).
+
+## Analysis discipline
+
+See `artifacts/documentation/observed-vs-inferred.md` for **Path A** (browser / login-replica chain) vs **Path B** (device-code), and for what is observed vs inferred vs not logged (including session-cookie capture).
