@@ -50,10 +50,12 @@ Answer format: `correlation-id,event-id`
 13. (2 pt) Mailbox forwarding was pointed at an external address whose domain also authored the primary lure’s return path. Submit `<forwarding-event-id>,<domain>`.
 Answer format: `event-id,domain`
 
-14. (1 pt) One defanged host appears in the second redirect-hop capture and is tied, in public AiTM kit reporting, to a known phishing family. Submit `<defanged-domain>,<family-name>`.
-Answer format: `defanged-domain,family-name`
+14. (2 pt) Recover the defanged host from the second redirect-hop capture.
+Find the AiTM PhaaS family tied to that indicator in public reporting.
+What Microsoft designation tracks the operators of that kit?
+Answer format: `Storm-####`
 
-15. (1 pt) Public analysis of AiTM kits that harvest cloud sessions maps the credential-access behavior “Steal Web Session Cookie” to which MITRE ATT&CK technique ID? (Also noted in the lab field reference.)
+15. (1 pt) Public analysis of AiTM kits that harvest cloud sessions maps the credential-access behavior “Steal Web Session Cookie” to which MITRE ATT&CK technique ID?
 Answer format: `T####`
 
 16. (1 pt) In Microsoft public reporting on large-scale **device-code** phishing against Microsoft 365 identities, which tracked actor designation is used? (Report naming only — do **not** treat this as attribution of INC-2417 to that actor.)
