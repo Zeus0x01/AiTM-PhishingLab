@@ -31,7 +31,7 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 | 11 | `ALERT-7712,medium` | related to EVT-58103 |
 | 12 | `CORR-2E71-05,EVT-58115` | grant ↔ device_code sign-in |
 | 13 | `EVT-58315,docshare-online.example` | SetForwarding domain |
-| 14 | `Storm-1747` | hop-02 IOC `beacon.diremsto[.]com` → Tycoon 2FA → Microsoft tracks operators as Storm-1747 |
+| 14 | `Dadsec` | hop-02 IOC → Tycoon 2FA → earlier reused kit (accept `Dadsec OTT`) |
 | 15 | `T1539` | Steal Web Session Cookie |
 | 16 | `Storm-2372` | Microsoft **report naming** for device-code phishing (not attribution of INC-2417) |
 | 17 | `EVT-58103,EVT-58314,EVT-58315` | sign-in → rule → forward |
@@ -48,10 +48,11 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 ### Q14 OSINT path (instructor)
 
 1. `artifacts/web/redirect-hop-02.txt` → `beacon.diremsto[.]com` (defanged).
-2. Public search of that IOC → Sekoia / community reporting on **Tycoon 2FA**.
-3. Same research cluster (and Microsoft reporting on the kit) tracks the **operators** as **Storm-1747**.
-4. Do **not** accept `Tycoon 2FA` alone — the graded answer is the Microsoft designation.
-5. Keep separate from Q16 (`Storm-2372` = device-code campaign naming, Path B).
+2. Public search of that IOC → **Tycoon 2FA** (Sekoia TDR IOC table / kit analyses).
+3. Open an in-depth Tycoon 2FA analysis (e.g. Sekoia “Tycoon 2FA: an in-depth analysis…”).
+4. Lineage section: panel/code overlap with an **earlier** PhaaS kit → **Dadsec** (also written Dadsec OTT).
+5. Graded answers: `Dadsec` or `Dadsec OTT`. Reject `Tycoon 2FA`, `Storm-1747`, and `Storm-1575` (those are related but not the asked earlier kit name).
+6. Keep separate from Q16 (`Storm-2372` = device-code campaign naming, Path B).
 
 ### Flag fragments
 
@@ -83,4 +84,4 @@ extra benign/decoy rows. Critical incident event ids are unchanged.
 
 ## Scoring
 
-Core threshold 23 / 30. Bonus optional. Q14 is now 2 pt (was 1) to match the multi-hop effort.
+Core threshold 23 / 30. Bonus optional. Q14 is 2 pt for the multi-hop OSINT effort.
