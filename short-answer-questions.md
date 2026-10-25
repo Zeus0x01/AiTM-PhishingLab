@@ -51,9 +51,10 @@ Answer format: `correlation-id,event-id`
 Answer format: `event-id,domain`
 
 14. (2 pt) Recover the defanged host from the second redirect-hop capture.
-Find the AiTM PhaaS family tied to that indicator in public reporting.
-What Microsoft designation tracks the operators of that kit?
-Answer format: `Storm-####`
+Identify the AiTM PhaaS family tied to that indicator.
+Public analysis of that family describes an earlier PhaaS kit whose panel and code were partly reused.
+What is the name of that earlier kit?
+Answer format: short kit name
 
 15. (1 pt) Public analysis of AiTM kits that harvest cloud sessions maps the credential-access behavior “Steal Web Session Cookie” to which MITRE ATT&CK technique ID?
 Answer format: `T####`
