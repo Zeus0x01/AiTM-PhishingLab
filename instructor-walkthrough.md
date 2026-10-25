@@ -31,7 +31,7 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 | 11 | `ALERT-7712,medium` | related to EVT-58103 |
 | 12 | `CORR-2E71-05,EVT-58115` | grant ↔ device_code sign-in |
 | 13 | `EVT-58315,docshare-online.example` | SetForwarding domain |
-| 14 | `beacon.diremsto[.]com,Tycoon 2FA` | hop-02 IOC |
+| 14 | `Storm-1747` | hop-02 IOC `beacon.diremsto[.]com` → Tycoon 2FA → Microsoft tracks operators as Storm-1747 |
 | 15 | `T1539` | Steal Web Session Cookie |
 | 16 | `Storm-2372` | Microsoft **report naming** for device-code phishing (not attribution of INC-2417) |
 | 17 | `EVT-58103,EVT-58314,EVT-58315` | sign-in → rule → forward |
@@ -44,6 +44,14 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 | 24 | `SESSION_COOKIE_CAPTURE` | implied, not logged |
 | 25 | `2026-09-13T09:12:00Z` | earliest identity-audit after noise |
 | 26 | `3,4` | Received counts |
+
+### Q14 OSINT path (instructor)
+
+1. `artifacts/web/redirect-hop-02.txt` → `beacon.diremsto[.]com` (defanged).
+2. Public search of that IOC → Sekoia / community reporting on **Tycoon 2FA**.
+3. Same research cluster (and Microsoft reporting on the kit) tracks the **operators** as **Storm-1747**.
+4. Do **not** accept `Tycoon 2FA` alone — the graded answer is the Microsoft designation.
+5. Keep separate from Q16 (`Storm-2372` = device-code campaign naming, Path B).
 
 ### Flag fragments
 
@@ -58,7 +66,7 @@ They exist so trainees practice web triage **without** a live phishing kit or ne
 
 ## AiTM vs device-code (instructor)
 
-Keep Path A (browser/login-replica) and Path B (device-code grant) separate. See `artifacts/documentation/observed-vs-inferred.md`.
+Keep Path A (browser/login-replica / Tycoon 2FA lineage) and Path B (device-code grant / Storm-2372 report naming) separate. See `artifacts/documentation/observed-vs-inferred.md`.
 
 Renamed messages (v1.1.0):
 
@@ -75,4 +83,4 @@ extra benign/decoy rows. Critical incident event ids are unchanged.
 
 ## Scoring
 
-Core threshold 23 / 30. Bonus optional.
+Core threshold 23 / 30. Bonus optional. Q14 is now 2 pt (was 1) to match the multi-hop effort.
